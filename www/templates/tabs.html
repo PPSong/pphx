@@ -1,0 +1,14 @@
+<ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-class="{'tabs-item-hide': hideTabs}">
+    <!-- meet Tab -->
+    <ion-tab title="邀请" icon="ion-at" href="#/tab/meet">
+        <ion-nav-view name="tab-meet"></ion-nav-view>
+    </ion-tab>
+    <!-- friend Tab -->
+    <ion-tab title="好友" icon="ion-person-stalker" href="#/tab/friend" badge="getUnreadTotalNum()" badge-style="badge-assertive">
+        <ion-nav-view name="tab-friend"></ion-nav-view>
+    </ion-tab>
+    <!-- setting Tab -->
+    <ion-tab title="设置" icon="ion-gear-a" href="#/tab/setting">
+        <ion-nav-view name="tab-setting"></ion-nav-view>
+    </ion-tab>
+</ion-tabs>

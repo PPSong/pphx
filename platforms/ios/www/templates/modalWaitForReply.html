@@ -1,0 +1,30 @@
+<ion-modal-view view-title="setting">
+    <ion-header-bar class="bar-stable">
+        <div class="buttons">
+            <button class="button" ng-click="closeWaitForReply()">返回</button>
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader">
+        <h2 class="title">待对方回复</h2>
+    </div>
+    <ion-content padding="true" class="has-header has-subheader padding">
+        <div class="row">
+            <img class="pp-special-pic-sm" ng-src="{{curMeet.data.targetSpecialPic}}">
+            <div class="col col-center">{{curMeet.data.specialInfo.sex}}</div>
+        </div>
+        <div class="row">
+            <div class="col">{{curMeet.data.specialInfo.hair}}</div>
+            <div class="col">{{curMeet.data.specialInfo.clothesColor}}</div>
+        </div>
+        <div class="row">
+            <div class="col">{{curMeet.data.specialInfo.glasses}}</div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col">{{curMeet.data.specialInfo.clothesType}}</div>
+            <div class="col">{{curMeet.data.specialInfo.clothesStyle}}</div>
+        </div>
+        <h2>一场邂逅正在等待中</h1>
+<h2>发出时间: <span am-time-ago="curMeet.data.createTime"></span></h2>
+    </ion-content>
+</ion-modal-view>

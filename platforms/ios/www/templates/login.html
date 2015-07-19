@@ -1,0 +1,19 @@
+<ion-view view-title="登录">
+    <ion-content padding="true" class="has-header">
+        <form>
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">用户名</span>
+                    <input type="text" placeholder="" ng-model="uData.username">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">密码</span>
+                    <input type="password" placeholder="" ng-model="uData.password">
+                </label>
+            </ion-list>
+            <div class="spacer" style="height: 40px;"></div>
+            <button class="button button-stable button-block  icon-left ion-android-social-user" ng-click="login()">登录</button>
+            <a href="#/register" class="button button-positive button-clear button-block ">创建新用户</a>
+        </form>
+    </ion-content>
+</ion-view>

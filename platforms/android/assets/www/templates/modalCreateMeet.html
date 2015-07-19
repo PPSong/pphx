@@ -1,0 +1,52 @@
+<ion-modal-view view-title="">
+    <ion-header-bar class="bar-stable">
+        <div class="buttons">
+            <button class="button" ng-click="closeCreateMeetModal()">返回</button>
+        </div>
+    </ion-header-bar>
+
+    <div class="bar bar-subheader">
+        <h2 class="title">发起<br>嗨羞</h2>
+    </div>
+
+    <ion-content padding="true" class="has-header has-subheader">
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionSex(targetSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            对方性别
+            <span class="item-note">{{targetSpecialInfo.sex}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionPlace(targetSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            您所在的场所
+            <span class="item-note">{{targetSpecialInfo.place}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionHair(targetSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            头发
+            <span class="item-note">{{targetSpecialInfo.hair}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionGlasses(targetSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            眼镜
+            <span class="item-note">{{targetSpecialInfo.glasses}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionClotheType(targetSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            衣服类型
+            <span class="item-note">{{targetSpecialInfo.clotheType}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionClotheColor(targetSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            衣服颜色
+            <span class="item-note">{{targetSpecialInfo.clotheColor}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionClotheStyle(targetSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            衣服风格
+            <span class="item-note">{{targetSpecialInfo.clotheStyle}}</span>
+        </a>
+    </ion-content>
+    <div class="bar bar-footer bar-balanced">
+        <div class="title" ng-click="searchTarget()">开始寻找</div>
+    </div>
+</ion-modal-view>

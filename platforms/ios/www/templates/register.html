@@ -1,0 +1,25 @@
+<ion-view title="注册">
+    <ion-content padding="true" scroll="false" class="has-header">
+        <form>
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">用户名</span>
+                    <input type="text" placeholder="" ng-model="uData.username">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">密码</span>
+                    <input type="password" placeholder="" ng-model="uData.password">
+                </label>
+                <label class="item item-input" ng-click="chooseOptionSex(uData)">
+                    <span class="input-label">性别</span>
+                    <span class="item-note">{{uData.sex}}</span>
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">昵称</span>
+                    <input type="text" placeholder="" ng-model="uData.nickname">
+                </label>
+            </ion-list>
+            <button class="button button-stable button-block  icon-left ion-android-social-user" ng-click="register()">确认</button>
+        </form>
+    </ion-content>
+</ion-view>

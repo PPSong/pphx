@@ -1,0 +1,7 @@
+<ion-radio ng-repeat="item in options" ng-model="data.optionVal" ng-value="item.name"
+ng-click="close()">{{item.name}}</ion-radio>
+<div class="list">
+    <label class="item item-input">
+        <input type="text" ng-model="data.optionVal" placeholder="如没找到请在此输入...">
+    </label>
+</div>

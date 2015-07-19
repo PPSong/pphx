@@ -1,0 +1,50 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-stable">
+        <div class="buttons">
+            <button class="button" ng-click="closeSpecialInfo()">确定</button>
+        </div>
+    </ion-header-bar>
+    <div class="bar bar-subheader">
+        <h2 class="title">昵称</h2>
+    </div>
+    <ion-content padding="true" class="has-header has-subheader">
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionHair(selfSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            头发
+            <span class="item-note">{{selfSpecialInfo.hair}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionGlasses(selfSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            眼镜
+            <span class="item-note">{{selfSpecialInfo.glasses}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionClotheType(selfSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            衣服类型
+            <span class="item-note">{{selfSpecialInfo.clotheType}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionClotheColor(selfSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            衣服颜色
+            <span class="item-note">{{selfSpecialInfo.clotheColor}}</span>
+        </a>
+        <a class="item item-icon-left" href="#" ng-click="chooseOptionClotheStyle(selfSpecialInfo)">
+            <i class="icon ion-mic-a"></i>
+            衣服风格
+            <span class="item-note">{{selfSpecialInfo.clotheStyle}}</span>
+        </a>
+        <div class="item item-divider pp-text-center">
+            Candy Bars
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="pp-special-pic-sm" src="cover.jpg">
+            </div>
+            <div class="col col-center padding">
+                <button class="button button-light button-block">
+                    button
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

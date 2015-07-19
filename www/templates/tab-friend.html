@@ -1,0 +1,11 @@
+<ion-view view-title="聊天">
+    <ion-content class="content-stable" on-swipe-left="onSwipeLeft()" on-swipe-right="onSwipeRight()">
+        <ion-list>
+            <a ng-repeat="item in friends" class="item item-avatar" href="#" ng-click="goToChat(item)">
+                <img ng-src="{{item.username1 === curUser.username ? item.friendLogo2 : item.friendLogo1}}"><span class="badge badge-assertive" ng-hide="getUnreadNum(item.username1 === curUser.username ? item.username2 : item.username1) == 0">{{getUnreadNum(item.username1 === curUser.username ? item.username2 : item.username1)}}</span>
+                <h2 ng-if="item.username1 === curUser.username">{{item.nickname2}}</h2>
+                <h2 ng-if="item.username2 === curUser.username">{{item.nickname1}}</h2>
+            </a>
+        </ion-list>
+    </ion-content>
+</ion-view>

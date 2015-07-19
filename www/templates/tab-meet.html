@@ -1,0 +1,64 @@
+<ion-view view-title="邀请">
+    <ion-nav-buttons side="primary">
+        <button class="button button-light icon ion-plus-round" ng-click="createMeet()">
+            发起嗨羞
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-light icon ion-ios-body" ng-click="editSpecialInfo()">
+            个人特征
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list>
+            <a class="item item-thumbnail-left" href="#" ng-click="clickMeet(item)" ng-repeat="item in meets">
+                <img ng-src="{{getImg(item)}}">
+                <div class="row" ng-if="item.createrUsername === curUser.username">
+                    <div class="col">
+                        邂逅
+                        <br>发出
+                    </div>
+                    <div class="col col-50" ng-if="item.status === '待确认'">
+                        不在其中
+                    </div>
+                    <div class="col col-50" ng-if="item.status === '待回复'">
+                        待对方回复
+                    </div>
+                    <div class="col col-50" ng-if="item.status === '成功'">
+                        成功
+                    </div>
+                    <div class="col" ng-if="item.status === '待确认'">
+                        已收到
+                        <br>{{item.matchNum}}条新匹配
+                    </div>
+                    <div class="col" ng-if="item.status === '待回复'">
+                        <span am-time-ago="item.createTime"></span>
+                        <br>发出
+                    </div>
+                    <div class="col" ng-if="item.status === '成功'">
+                        <span am-time-ago="item.successTime"></span>
+                    </div>
+                </div>
+                <div class="row" ng-if="item.targetUsername === curUser.username">
+                    <div class="col">
+                        邂逅
+                        <br>收到
+                    </div>
+                    <div class="col col-50" ng-if="item.status === '待回复'">
+                        待回复
+                    </div>
+                    <div class="col col-50" ng-if="item.status === '成功'">
+                        成功
+                    </div>
+                    <div class="col" ng-if="item.status === '待回复'">
+                        剩余回复
+                        <br>次数:{{item.replyLeft}}
+                    </div>
+                    <div class="col" ng-if="item.status === '成功'">
+                        <span am-time-ago="item.successTime"></span>
+                    </div>
+                </div>
+            </a>
+        </ion-list>
+    </ion-content>
+</ion-view>
