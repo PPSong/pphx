@@ -6,7 +6,7 @@
     </ion-nav-buttons>
     <ion-nav-buttons side="secondary">
         <button class="button button-light icon ion-ios-body" ng-click="editSpecialInfo()">
-            个人特征
+            个人特征<span class="header-badge badge badge-assertive" style="display:inline" ng-if="showRemind()">!</span>
         </button>
     </ion-nav-buttons>
     <ion-content class="has-header">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col" ng-if="item.status === '待确认'">
                         已收到
-                        <br>{{item.matchNum}}条新匹配
+                        <br>{{item.newMatchNum}}条新匹配
                     </div>
                     <div class="col" ng-if="item.status === '待回复'">
                         <span am-time-ago="item.createTime"></span>

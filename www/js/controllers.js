@@ -13,7 +13,6 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
             },
             //success
             function(data, status) {
-                //CurUserService.setCurUser(data.ppData);
                 var ref = new Firebase("https://pphx.firebaseio.com/users/" + data.ppData.username);
 
                 var obj = $firebaseObject(ref);
@@ -72,6 +71,17 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
     $scope.targetSpecialInfo = {
         data: {}
     };
+
+    $scope.$watch('targetSpecialInfo.data.sex', function(newValue, oldValue) {
+        if (newValue != oldValue) {
+            $scope.targetSpecialInfo = {
+                data: {
+                    sex: newValue,
+                    place: $scope.targetSpecialInfo.data.place
+                }
+            }
+        }
+    });
 
     $scope.curUser = CurUserService.getCurUser();
 
@@ -288,7 +298,7 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
     }
 
     $scope.selectSuccess = function() {
-        if ($scope.curTarget.data.targetUsername == 'fake') {
+        if ($scope.curTarget.data.username == 'fake') {
             PPHttp.do(
                 'p',
                 'selectFake', {
@@ -389,8 +399,27 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
 })
 
 
-.controller('MeetCtrl', function($scope, $rootScope, $ionicModal, $ionicPopup, $state, $cordovaToast, $cordovaCamera, $ionicLoading, $cordovaGeolocation, OptionService, PPHttp) {
+.controller('MeetCtrl', function($scope, $rootScope, $ionicModal, $state, $cordovaToast, $cordovaCamera, $ionicLoading, $cordovaGeolocation, $ionicPopup, OptionService, PPHttp) {
     $scope.selfSpecialInfo = {};
+
+    $scope.showRemind = function() {
+            if ($scope.curUser.lastRemind) {
+                if ($scope.curUser.specialInfoTime) {
+                    return $scope.curUser.specialInfoTime < $scope.curUser.lastRemind;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+        // An alert dialog
+    $scope.popupBigPic = function() {
+        var alertPopup = $ionicPopup.alert({
+            //title: 'Don\'t eat that!',
+            template: ' <img class="pp-special-pic-big" src="' + ($scope.selfSpecialInfo.specialPic || $scope.curUser.specialInfo.specialPic) + '">'
+        });
+    };
 
     $scope.getImg = function(item) {
         if (item.createrUsername === $scope.curUser.username) {
@@ -417,7 +446,17 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
     };
 
     $scope.chooseOptionHair = function(object) {
-        OptionService.initOption(object, ['长', '短'], 'hair', '发型');
+        var tmpSex;
+        if ($scope.modalSpecialInfo.isShown()) {
+            tmpSex = $scope.curUser.specialInfo.sex;
+        } else {
+            tmpSex = $scope.targetSpecialInfo.data.sex;
+        }
+        if (tmpSex == "男") {
+            OptionService.initOption(object, ['长(男)', '短(男)'], 'hair', '发型');
+        } else {
+            OptionService.initOption(object, ['长(女)', '短(女)'], 'hair', '发型');
+        }
     };
 
     $scope.chooseOptionGlasses = function(object) {
@@ -425,20 +464,78 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
     };
 
     $scope.chooseOptionClothesType = function(object) {
-        OptionService.initOption(object, ['大衣', '衬衫'], 'clothesType', '衣服类型');
+        var tmpSex;
+        if ($scope.modalSpecialInfo.isShown()) {
+            tmpSex = $scope.curUser.specialInfo.sex;
+        } else {
+            tmpSex = $scope.targetSpecialInfo.data.sex;
+        }
+        if (tmpSex == "男") {
+            OptionService.initOption(object, ['大衣(男)', '衬衫(男)'], 'clothesType', '衣服类型');
+        } else {
+            OptionService.initOption(object, ['大衣(女)', '衬衫(女)'], 'clothesType', '衣服类型');
+        }
     };
 
     $scope.chooseOptionClothesColor = function(object) {
-        OptionService.initOption(object, ['黑', '白'], 'clothesColor', '衣服颜色');
+        var tmpSex;
+        if ($scope.modalSpecialInfo.isShown()) {
+            tmpSex = $scope.curUser.specialInfo.sex;
+        } else {
+            tmpSex = $scope.targetSpecialInfo.data.sex;
+        }
+        if (tmpSex == "男") {
+            OptionService.initOption(object, ['黑(男)', '白(男)'], 'clothesColor', '衣服颜色');
+        } else {
+            OptionService.initOption(object, ['黑(女)', '白(女)'], 'clothesColor', '衣服颜色');
+        }
     };
 
     $scope.chooseOptionClothesStyle = function(object) {
-        OptionService.initOption(object, ['纯色', '条纹'], 'clothesStyle', '衣服花纹');
+        var tmpSex;
+        if ($scope.modalSpecialInfo.isShown()) {
+            tmpSex = $scope.curUser.specialInfo.sex;
+        } else {
+            tmpSex = $scope.targetSpecialInfo.data.sex;
+        }
+        if (tmpSex == "男") {
+            OptionService.initOption(object, ['纯色(男)', '条纹(男)'], 'clothesStyle', '衣服花纹');
+        } else {
+            OptionService.initOption(object, ['纯色(女)', '条纹(女)'], 'clothesStyle', '衣服花纹');
+        }
     };
 
     $scope.editSpecialInfo = function() {
-        $scope.selfSpecialInfo = {};
-        $scope.modalSpecialInfo.show();
+        //上传当前地理位置
+        var posOptions = {
+            timeout: 10000,
+            enableHighAccuracy: true
+        };
+
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+
+            //发送当前地理位置
+            PPHttp.do(
+                'p',
+                'updateLocation', {
+                    lng: long,
+                    lat: lat,
+                    token: $scope.curUser.token
+                },
+                //success
+                function(data, status) {
+                    $scope.selfSpecialInfo = {};
+                    $scope.modalSpecialInfo.show();
+                }
+            )
+
+        }, function(err) {
+            // error
+            $cordovaToast.showShortCenter(err);
+            console.log(err);
+        });
     };
     $scope.saveSpecialInfo = function() {
         $scope.modalSpecialInfo.hide();
@@ -492,6 +589,8 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
                                 },
                                 function(data, status) {
                                     if (data.ppResult == 'ok') {
+                                        //设置默认性别
+                                        $scope.targetSpecialInfo.data.sex = ($scope.curUser.specialInfo.sex === '男' ? '女' : '男');
                                         $scope.modalCreateMeet.show();
                                     }
                                 }
@@ -530,6 +629,15 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
         $scope.curMeet.data = item;
         if (item.createrUsername === $scope.curUser.username) {
             if (item.status === "待确认") {
+                //resetNewMatchNum
+                PPHttp.do(
+                    'p',
+                    'resetNewMatchNum', {
+                        token: $scope.curUser.token,
+                        meetId: item._id,
+                    }
+                );
+
                 $scope.targetSpecialInfo.data = item.specialInfo;
                 $scope.targetSpecialInfo.data.place = item.mapLoc;
                 $ionicLoading.show({
@@ -584,7 +692,9 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
                             //success
                             function(data, status) {
                                 $scope.lastLocation.data = data.ppData.lastLocation;
-                                $scope.targetSpecialInfo.data = {};
+                                $scope.targetSpecialInfo.data = {
+                                    sex: $scope.curUser.specialInfo.sex === '男' ? '女' : '男'
+                                };
                                 $scope.modalReplyMeet.show();
                             }
                         )
@@ -661,7 +771,7 @@ angular.module('starter.controllers', ['starter.services', 'starter.filters', 's
 
     $scope.searchReplyTarget = function() {
         if (!(
-                $scope.targetSpecialInfo.data.sex && $scope.targetSpecialInfo.data.clothesColor && $scope.targetSpecialInfo.data.clothesStyle && $scope.targetSpecialInfo.data.clothesType && $scope.targetSpecialInfo.data.glasses && $scope.targetSpecialInfo.data.hair && $scope.targetSpecialInfo.data.place
+                $scope.targetSpecialInfo.data.sex && $scope.targetSpecialInfo.data.clothesColor && $scope.targetSpecialInfo.data.clothesStyle && $scope.targetSpecialInfo.data.clothesType && $scope.targetSpecialInfo.data.glasses && $scope.targetSpecialInfo.data.hair
             )) {
             console.log('请把条件填写完整');
             $cordovaToast.showShortCenter('请把条件填写完整');

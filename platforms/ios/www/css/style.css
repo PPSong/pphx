@@ -1,29 +1,39 @@
 /* Empty. Add your own CSS if you like */
+.popup-container .popup {
+    width: 100%;
+    text-align: center
+}
 
 .pp-text-center {
     text-align: center
 }
+
 .pp-special-pic-sm {
     height: 120px;
     width: 120px
 }
+
 .pp-special-pic-big {
     height: 300px;
     width: 300px
 }
+
 .pp-test {
     padding: 0px
 }
+
 .pp-font-xs {
     font-size: 10px;
     padding: 0px
 }
+
 #pp-line-xs {
     line-height: 20px;
     font-size: 10px;
     min-height: 25px;
     margin: 0px
 }
+
 .messages {
     display: -webkit-box;
     display: -moz-box;
@@ -40,6 +50,7 @@
     align-items: center;
     margin-bottom: 20px;
 }
+
 .messages .message {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -55,6 +66,7 @@
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
+
 .time {
     -webkit-box-flex: 0;
     -moz-box-flex: 0;
@@ -73,26 +85,31 @@
     -moz-transform: translate3d(10px, 0, 0);
     transform: translate3d(10px, 0, 0);
 }
+
 .time.slide-right {
     -webkit-transform: translate3d(130px, 0, 0);
     -moz-transform: translate3d(130px, 0, 0);
     transform: translate3d(130px, 0, 0);
 }
+
 .messages.other .message {
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     text-align: right;
 }
+
 .messages.other .message.slide-right {
     -webkit-transform: translate3d(120px, 0, 0);
     -moz-transform: translate3d(120px, 0, 0);
     transform: translate3d(120px, 0, 0);
 }
+
 .messages.other span {
     color: black;
     background-color: #C7C7CC;
 }
+
 span.message {
     background: #007AFF;
     display: inline-block;
@@ -102,6 +119,7 @@ span.message {
     text-align: left;
     max-width: 240px;
 }
+
 img.middleImg {
     width: 200px;
     height: 200px;
